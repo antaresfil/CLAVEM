@@ -18,7 +18,7 @@
 
 <p align="center">
   by <strong>Massimo Parisi (antaresfil)</strong><br/>
-  📧 <a href="mailto:xilomen@gmail.com">xilomen@gmail.com</a> &nbsp;|&nbsp;
+  📧 <a href="mailto:clavemhelp@noxfarm.com">clavemhelp@noxfarm.com</a> &nbsp;|&nbsp;
   🛠️ Support: <a href="mailto:clavemhelp@noxfarm.com">clavemhelp@noxfarm.com</a>
 </p>
 
