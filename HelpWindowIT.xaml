@@ -1,0 +1,170 @@
+<Window x:Class="CLAVEM.HelpWindowIT"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Guida all'Uso - CLAVEM" 
+        Height="650" Width="850"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1976D2" Padding="20" CornerRadius="8" Margin="0,0,0,15">
+            <StackPanel>
+                <TextBlock Text="📚 Guida all'Uso di CLAVEM" FontSize="24" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="Istruzioni complete per crittografia e decrittografia sicura" FontSize="14" Foreground="#E3F2FD" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Border Background="White" Padding="25" CornerRadius="8">
+                <StackPanel>
+                    
+                    <!-- Crittografia Base -->
+                    <TextBlock Text="🔒 CRITTOGRAFARE UN FILE" FontSize="18" FontWeight="Bold" Foreground="#1976D2" Margin="0,0,0,10"/>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">1.</Run> Seleziona <Run FontWeight="Bold">"Encrypt"</Run> nella sezione Operazione
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">2.</Run> Clicca <Run FontWeight="Bold">"Browse"</Run> e scegli il file da crittografare
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">3.</Run> Inserisci una <Run FontWeight="Bold">password sicura</Run> (minimo 8 caratteri, con lettere, numeri e simboli)
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">4.</Run> <Run FontStyle="Italic">[Opzionale]</Run> Seleziona un <Run FontWeight="Bold">keyfile</Run> per maggiore sicurezza
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">5.</Run> <Run FontStyle="Italic">[Opzionale]</Run> Deseleziona <Run FontWeight="Bold">"Securely delete original file"</Run> se vuoi mantenere il file originale
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,15">
+                        <Run FontWeight="Bold">6.</Run> Clicca <Run FontWeight="Bold">"Execute"</Run>
+                    </TextBlock>
+                    
+                    <Border Background="#E3F2FD" Padding="12" CornerRadius="4" Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock Text="💡 Risultato" FontWeight="Bold" Foreground="#1976D2" Margin="0,0,0,5"/>
+                            <TextBlock TextWrapping="Wrap">
+                                Verrà creato un file <Run FontWeight="Bold">.svlt</Run> (es: documento.pdf → documento.pdf.svlt)
+                            </TextBlock>
+                            <TextBlock TextWrapping="Wrap" Margin="0,5,0,0">
+                                Se "Securely delete" è attivo, il file originale verrà cancellato in modo sicuro.
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Decrittografia -->
+                    <TextBlock Text="🔓 DECRITTOGRAFARE UN FILE" FontSize="18" FontWeight="Bold" Foreground="#1976D2" Margin="0,10,0,10"/>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">1.</Run> Seleziona <Run FontWeight="Bold">"Decrypt"</Run> nella sezione Operazione
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">2.</Run> Clicca <Run FontWeight="Bold">"Browse"</Run> e scegli il file <Run FontWeight="Bold">.svlt</Run> da decrittografare
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">3.</Run> Inserisci la <Run FontWeight="Bold">stessa password</Run> usata per crittografare
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">4.</Run> Se il file è stato crittografato con un keyfile, seleziona <Run FontWeight="Bold">lo stesso keyfile</Run>
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,15">
+                        <Run FontWeight="Bold">5.</Run> Clicca <Run FontWeight="Bold">"Execute"</Run>
+                    </TextBlock>
+
+                    <Border Background="#E3F2FD" Padding="12" CornerRadius="4" Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock Text="💡 Risultato" FontWeight="Bold" Foreground="#1976D2" Margin="0,0,0,5"/>
+                            <TextBlock TextWrapping="Wrap">
+                                Il file originale verrà ripristinato con il nome e contenuto originali.
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Keyfile -->
+                    <TextBlock Text="🔑 COS'È UN KEYFILE?" FontSize="18" FontWeight="Bold" Foreground="#1976D2" Margin="0,10,0,10"/>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                        Un keyfile è un file qualsiasi (immagine, documento, ecc.) che funge da <Run FontWeight="Bold">seconda chiave</Run> di sicurezza.
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,5">
+                        <Run FontWeight="Bold">Vantaggi:</Run>
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        • <Run FontWeight="Bold">Doppia protezione:</Run> serve sia password che keyfile per decrittografare
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        • <Run FontWeight="Bold">Impossibile indovinare:</Run> anche con la password, senza keyfile il file è inaccessibile
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,10,0,5">
+                        <Run FontWeight="Bold">⚠️ IMPORTANTE:</Run>
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,20">
+                        Conserva il keyfile in modo sicuro! Se lo perdi, <Run FontWeight="Bold">NON potrai più decrittografare</Run> i tuoi file.
+                    </TextBlock>
+
+                    <!-- Secure Delete -->
+                    <TextBlock Text="🗑️ SECURE DELETE" FontSize="18" FontWeight="Bold" Foreground="#1976D2" Margin="0,10,0,10"/>
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                        Quando questa opzione è attiva, il file originale viene:
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        <Run FontWeight="Bold">1.</Run> Sovrascritto 3 volte con dati casuali (standard DoD 5220.22-M)
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        <Run FontWeight="Bold">2.</Run> Cancellato definitivamente
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,10,0,20">
+                        Questo rende <Run FontWeight="Bold">impossibile il recupero</Run> del file originale, anche con strumenti forensi avanzati.
+                    </TextBlock>
+
+                    <!-- Errori Comuni -->
+                    <TextBlock Text="⚠️ ERRORI COMUNI" FontSize="18" FontWeight="Bold" Foreground="#D32F2F" Margin="0,10,0,10"/>
+                    
+                    <TextBlock Text="❌ Password errata" FontWeight="Bold" Margin="0,5,0,3"/>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,10">
+                        Verifica di aver inserito esattamente la stessa password usata per crittografare (maiuscole/minuscole contano!)
+                    </TextBlock>
+
+                    <TextBlock Text="❌ Keyfile sbagliato" FontWeight="Bold" Margin="0,5,0,3"/>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,10">
+                        Devi usare <Run FontWeight="Bold">esattamente lo stesso file</Run> usato per crittografare. Anche un byte di differenza rende impossibile la decrittografia.
+                    </TextBlock>
+
+                    <TextBlock Text="❌ File crittografato con keyfile, ma keyfile non fornito" FontWeight="Bold" Margin="0,5,0,3"/>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,10">
+                        Se hai crittografato con keyfile, DEVI fornire lo stesso keyfile per decrittografare.
+                    </TextBlock>
+
+                    <!-- Suggerimenti -->
+                    <TextBlock Text="💡 SUGGERIMENTI DI SICUREZZA" FontSize="18" FontWeight="Bold" Foreground="#388E3C" Margin="0,20,0,10"/>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        ✓ Usa password lunghe e complesse (almeno 12 caratteri)
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        ✓ Combina password + keyfile per massima sicurezza
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        ✓ Conserva backup del keyfile in luoghi diversi e sicuri
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        ✓ Non condividere mai password o keyfile via email non crittografata
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="15,0,0,5">
+                        ✓ Usa "Secure Delete" per file sensibili
+                    </TextBlock>
+
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Margin="0,15,0,0">
+            <Button Content="Chiudi" Width="120" HorizontalAlignment="Right" Click="CloseButton_Click"/>
+        </Border>
+    </Grid>
+</Window>

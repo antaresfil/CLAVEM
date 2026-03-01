@@ -1,0 +1,590 @@
+<Window x:Class="CLAVEM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CLAVEM - File Encryption by Massimo Parisi (antaresfil)"
+        Height="630" Width="920"
+        MinHeight="570" MinWidth="820"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F0E8"
+        TextOptions.TextRenderingMode="ClearType"
+        TextOptions.TextFormattingMode="Display"
+        RenderOptions.ClearTypeHint="Enabled">
+
+    <Window.Resources>
+
+        <!-- Base Button template con ClearType -->
+        <Style TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              TextOptions.TextRenderingMode="ClearType"
+                                              TextOptions.TextFormattingMode="Display"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.4"/>
+                                <Setter Property="Cursor" Value="Arrow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="8,7"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#FAF7F0"/>
+            <Setter Property="BorderBrush" Value="#DDD3B0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#8B7355"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Padding" Value="8,7"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#FAF7F0"/>
+            <Setter Property="BorderBrush" Value="#DDD3B0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#6B5A2E"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#8B7355"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Nav buttons: About / Help con glow hover -->
+        <Style x:Key="NavButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#2D1F0A"/>
+            <Setter Property="Foreground" Value="#C9A84C"/>
+            <Setter Property="BorderBrush" Value="#3D2F10"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="30"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3D2F10"/>
+                    <Setter Property="Foreground" Value="#FFD966"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FFD040" BlurRadius="12" ShadowDepth="0" Opacity="0.8"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Bottoni outline piccoli footer -->
+        <Style x:Key="SmallOutlineButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#A08040"/>
+            <Setter Property="BorderBrush" Value="#D4C4A0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FDF5E0"/>
+                    <Setter Property="BorderBrush" Value="#C9A84C"/>
+                    <Setter Property="Foreground" Value="#C9A84C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Browse button scuro -->
+        <Style x:Key="BrowseButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#1A1208"/>
+            <Setter Property="Foreground" Value="#C9A84C"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="76"/>
+            <Setter Property="Height" Value="32"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2D1F0A"/>
+                    <Setter Property="Foreground" Value="#FFD966"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Bottone principale: oro brillante con hover acceso e click -->
+        <Style x:Key="ExecuteButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Padding" Value="36,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#D4A830" Offset="0"/>
+                        <GradientStop Color="#A07010" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#A07010" BlurRadius="10" ShadowDepth="2" Opacity="0.45"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              TextOptions.TextRenderingMode="ClearType"
+                                              TextOptions.TextFormattingMode="Display"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Hover: oro vivo luminoso -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#FFD966" Offset="0"/>
+                                            <GradientStop Color="#C88A10" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#FFD040" BlurRadius="20" ShadowDepth="0" Opacity="0.8"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <!-- Click: più scuro -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#B8860B" Offset="0"/>
+                                            <GradientStop Color="#8B6400" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="border" Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.35"/>
+                                <Setter Property="Cursor" Value="Arrow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ══════════════ HEADER ══════════════ -->
+        <Border Grid.Row="0" Background="#1A1208" Padding="22,14"
+                TextOptions.TextRenderingMode="ClearType"
+                TextOptions.TextFormattingMode="Display">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" BlurRadius="14" ShadowDepth="2" Opacity="0.5"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border CornerRadius="12" Width="68" Height="68" Margin="0,0,16,0" ClipToBounds="True">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#000000" BlurRadius="12" ShadowDepth="2" Opacity="0.5"/>
+                        </Border.Effect>
+                        <Image Source="Resources/clavem_logo.png" Width="68" Height="68"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Stretch="UniformToFill"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="CLAVEM"
+                                   FontFamily="Palatino Linotype"
+                                   FontSize="22" FontWeight="Bold"
+                                   Foreground="#E8C040"/>
+                        <TextBlock Text="FILE ENCRYPTION  ·  ANTARESFIL"
+                                   FontFamily="Segoe UI" FontSize="10" FontWeight="SemiBold"
+                                   Foreground="#C4A44A" Margin="1,3,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Status pill verde pulsante -->
+                    <Border CornerRadius="12" Padding="10,4" Margin="0,0,14,0"
+                            Background="#0A2A14" BorderBrush="#1A5530" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse Width="7" Height="7" Fill="#22C55E" Margin="0,0,6,0">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect Color="#22C55E" BlurRadius="8" ShadowDepth="0" Opacity="1"/>
+                                </Ellipse.Effect>
+                            </Ellipse>
+                            <TextBlock x:Name="StatusText" Text="READY"
+                                       FontFamily="Segoe UI" FontSize="10" FontWeight="Bold"
+                                       Foreground="#22C55E"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Content="ℹ  About" Click="AboutButton_Click"
+                            Width="80" Margin="0,0,6,0" Padding="8,0"
+                            Style="{StaticResource NavButtonStyle}"/>
+                    <Button Content="📚  Help IT" Click="HelpIT_Click"
+                            Width="88" Margin="0,0,6,0" Padding="8,0"
+                            Style="{StaticResource NavButtonStyle}"/>
+                    <Button Content="📚  Help EN" Click="HelpEN_Click"
+                            Width="88" Padding="8,0"
+                            Style="{StaticResource NavButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ══════════════ TABS ══════════════ -->
+        <Border Grid.Row="1" Background="#211608" BorderBrush="#3D2F10" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal">
+
+                <!-- Encrypt tab: oro brillante se attivo, oro medio se inattivo -->
+                <RadioButton x:Name="EncryptRadioButton"
+                             Content="🔒  Encrypt File"
+                             GroupName="Operation" IsChecked="True"
+                             Checked="OperationMode_Changed"
+                             FontFamily="Palatino Linotype"
+                             FontSize="14" FontWeight="Bold"
+                             Padding="28,13" Margin="0" Cursor="Hand">
+                    <RadioButton.Template>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border x:Name="tb" Background="Transparent"
+                                    BorderThickness="0,0,0,2" BorderBrush="Transparent"
+                                    Padding="{TemplateBinding Padding}" Cursor="Hand">
+                                <TextBlock x:Name="label" Text="🔒  Encrypt File"
+                                           FontFamily="Palatino Linotype" FontSize="14" FontWeight="Bold"
+                                           Foreground="#9A7A30"
+                                           TextOptions.TextRenderingMode="ClearType"
+                                           TextOptions.TextFormattingMode="Display"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="tb" Property="BorderBrush" Value="#E8C040"/>
+                                    <Setter TargetName="tb" Property="Background" Value="#1A0F04"/>
+                                    <Setter TargetName="label" Property="Foreground" Value="#E8C040"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="tb" Property="Background" Value="#160C03"/>
+                                    <Setter TargetName="label" Property="Foreground" Value="#C9A84C"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </RadioButton.Template>
+                </RadioButton>
+
+                <!-- Decrypt tab: oro medio se attivo, grigio-oro se inattivo -->
+                <RadioButton x:Name="DecryptRadioButton"
+                             Content="🔓  Decrypt File"
+                             GroupName="Operation"
+                             Checked="OperationMode_Changed"
+                             FontFamily="Palatino Linotype"
+                             FontSize="14" FontWeight="Bold"
+                             Padding="28,13" Margin="0" Cursor="Hand">
+                    <RadioButton.Template>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border x:Name="tb" Background="Transparent"
+                                    BorderThickness="0,0,0,2" BorderBrush="Transparent"
+                                    Padding="{TemplateBinding Padding}" Cursor="Hand">
+                                <TextBlock x:Name="label" Text="🔓  Decrypt File"
+                                           FontFamily="Palatino Linotype" FontSize="14" FontWeight="Bold"
+                                           Foreground="#6A5828"
+                                           TextOptions.TextRenderingMode="ClearType"
+                                           TextOptions.TextFormattingMode="Display"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="tb" Property="BorderBrush" Value="#E8C040"/>
+                                    <Setter TargetName="tb" Property="Background" Value="#1A0F04"/>
+                                    <Setter TargetName="label" Property="Foreground" Value="#E8C040"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="tb" Property="Background" Value="#160C03"/>
+                                    <Setter TargetName="label" Property="Foreground" Value="#C9A84C"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </RadioButton.Template>
+                </RadioButton>
+
+            </StackPanel>
+        </Border>
+
+        <!-- ══════════════ BODY ══════════════ -->
+        <Grid Grid.Row="2" Background="#F5F0E8" Margin="18,16,18,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Pannello SINISTRA: File Selection -->
+            <Border Grid.Column="0" Background="White" CornerRadius="10"
+                    BorderBrush="#E8DFC8" BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect Color="#1A1208" BlurRadius="8" ShadowDepth="1" Opacity="0.07"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" CornerRadius="10,10,0,0"
+                            Padding="14,9" BorderBrush="#E0D4B0" BorderThickness="0,0,0,1">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#F5EED8" Offset="0"/>
+                                <GradientStop Color="#EDE5CC" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="FILE SELECTION"
+                                   FontFamily="Palatino Linotype"
+                                   FontSize="10" FontWeight="Bold"
+                                   Foreground="#8B6914"
+                                   TextOptions.TextRenderingMode="ClearType"
+                                   TextOptions.TextFormattingMode="Display"/>
+                    </Border>
+                    <StackPanel Grid.Row="1" Margin="16,14,16,16">
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="FILE"
+                                       FontFamily="Segoe UI" FontSize="11" FontWeight="Bold"
+                                       Foreground="#A08040" VerticalAlignment="Center"
+                                       TextOptions.TextRenderingMode="ClearType"
+                                       TextOptions.TextFormattingMode="Display"/>
+                            <TextBox x:Name="FilePathTextBox" Grid.Column="1"
+                                     IsReadOnly="True" Margin="0,0,8,0"
+                                     TextChanged="FilePathTextBox_TextChanged"/>
+                            <Button x:Name="BrowseButton" Grid.Column="2"
+                                    Content="Browse..." Click="BrowseButton_Click"
+                                    Style="{StaticResource BrowseButtonStyle}"/>
+                        </Grid>
+
+                        <Border x:Name="FileInfoPanel" Visibility="Collapsed"
+                                Background="#FDF8EC" BorderBrush="#E0D4B0"
+                                BorderThickness="1" CornerRadius="6"
+                                Padding="10,8" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock x:Name="FileInfoText" FontWeight="Bold"
+                                           Foreground="#6B5A2E" FontSize="13"
+                                           TextOptions.TextRenderingMode="ClearType"/>
+                                <TextBlock x:Name="FileInfoDetails" Foreground="#A08040"
+                                           FontSize="12" Margin="0,3,0,0" TextWrapping="Wrap"
+                                           TextOptions.TextRenderingMode="ClearType"/>
+                                <TextBlock x:Name="EncryptedFileWarning"
+                                           Visibility="Collapsed"
+                                           Text="⛔  This file is already encrypted (.svlt). Select a different file."
+                                           Foreground="#C0392B" FontSize="12" FontWeight="Bold"
+                                           Margin="0,3,0,0" TextWrapping="Wrap"
+                                           TextOptions.TextRenderingMode="ClearType"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="OUTPUT"
+                                       FontFamily="Segoe UI" FontSize="11" FontWeight="Bold"
+                                       Foreground="#A08040" VerticalAlignment="Center"
+                                       TextOptions.TextRenderingMode="ClearType"
+                                       TextOptions.TextFormattingMode="Display"/>
+                            <TextBox x:Name="OutputPathTextBox" Grid.Column="1" IsReadOnly="True"/>
+                        </Grid>
+
+                        <Separator Background="#E8DFC8" Margin="0,0,0,12"/>
+
+                        <CheckBox x:Name="SecureDeleteCheckBox" IsChecked="True"
+                                  Content="Secure delete original file after encryption (3-pass)"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Pannello DESTRA: Authentication -->
+            <Border Grid.Column="2" Background="White" CornerRadius="10"
+                    BorderBrush="#E8DFC8" BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect Color="#1A1208" BlurRadius="8" ShadowDepth="1" Opacity="0.07"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" CornerRadius="10,10,0,0"
+                            Padding="14,9" BorderBrush="#E0D4B0" BorderThickness="0,0,0,1">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#F5EED8" Offset="0"/>
+                                <GradientStop Color="#EDE5CC" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="AUTHENTICATION"
+                                   FontFamily="Palatino Linotype"
+                                   FontSize="10" FontWeight="Bold"
+                                   Foreground="#8B6914"
+                                   TextOptions.TextRenderingMode="ClearType"
+                                   TextOptions.TextFormattingMode="Display"/>
+                    </Border>
+                    <StackPanel Grid.Row="1" Margin="16,14,16,16">
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="76"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="PASSWORD"
+                                       FontFamily="Segoe UI" FontSize="11" FontWeight="Bold"
+                                       Foreground="#A08040" VerticalAlignment="Center"
+                                       TextOptions.TextRenderingMode="ClearType"
+                                       TextOptions.TextFormattingMode="Display"/>
+                            <PasswordBox x:Name="PasswordBox" Grid.Column="1"
+                                         PasswordChanged="PasswordBox_PasswordChanged"/>
+                        </Grid>
+
+                        <StackPanel x:Name="ConfirmPasswordPanel" Margin="0,0,0,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="76"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="CONFIRM"
+                                           FontFamily="Segoe UI" FontSize="11" FontWeight="Bold"
+                                           Foreground="#A08040" VerticalAlignment="Center"
+                                           TextOptions.TextRenderingMode="ClearType"
+                                           TextOptions.TextFormattingMode="Display"/>
+                                <PasswordBox x:Name="ConfirmPasswordBox" Grid.Column="1"
+                                             PasswordChanged="AuthFactor_Changed"/>
+                            </Grid>
+                            <TextBlock x:Name="PasswordMismatchText"
+                                       Text="Passwords do not match."
+                                       Foreground="#C0392B" FontSize="12"
+                                       Margin="76,4,0,0" Visibility="Collapsed"
+                                       TextOptions.TextRenderingMode="ClearType"/>
+                        </StackPanel>
+
+                        <Separator Background="#E8DFC8" Margin="0,2,0,12"/>
+
+                        <CheckBox x:Name="UseKeyFileCheckBox"
+                                  Content="Use Keyfile (cryptographic second factor)"
+                                  Checked="AuthFactor_Changed" Unchecked="AuthFactor_Changed"
+                                  Margin="0,0,0,10"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="76"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="KEYFILE"
+                                       FontFamily="Segoe UI" FontSize="11" FontWeight="Bold"
+                                       Foreground="#A08040" VerticalAlignment="Center"
+                                       TextOptions.TextRenderingMode="ClearType"
+                                       TextOptions.TextFormattingMode="Display"/>
+                            <TextBox x:Name="KeyFilePathTextBox" Grid.Column="1"
+                                     IsReadOnly="True" Margin="0,0,8,0"
+                                     TextChanged="AuthFactor_Changed"/>
+                            <Button x:Name="BrowseKeyFileButton" Grid.Column="2"
+                                    Content="Browse..." Click="BrowseKeyFileButton_Click"
+                                    Style="{StaticResource BrowseButtonStyle}"/>
+                        </Grid>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- ══════════════ FOOTER ══════════════ -->
+        <Border Grid.Row="3" Background="White"
+                BorderBrush="#E8DFC8" BorderThickness="0,1,0,0"
+                Padding="18,12" Margin="0,14,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="SetupGuideButton"
+                            Content="📖  Setup Guide"
+                            Click="SetupGuideButton_Click"
+                            Margin="0,0,8,0"
+                            Style="{StaticResource SmallOutlineButtonStyle}"/>
+                    <Button x:Name="VerifyIntegrityButton"
+                            Content="🔎  Verify Integrity"
+                            Click="VerifyIntegrityButton_Click"
+                            Style="{StaticResource SmallOutlineButtonStyle}"/>
+                </StackPanel>
+
+                <Button x:Name="ExecuteButton" Grid.Column="1"
+                        Content="Encrypt File"
+                        Click="ExecuteButton_Click"
+                        IsEnabled="False"
+                        Style="{StaticResource ExecuteButtonStyle}"/>
+            </Grid>
+        </Border>
+
+        <!-- ══════════════ PROGRESS ══════════════ -->
+        <Border Grid.Row="4" x:Name="ProgressPanel" Visibility="Collapsed"
+                Background="#FDF8EC" BorderBrush="#E0D4B0"
+                BorderThickness="0,1,0,0" Padding="18,12">
+            <StackPanel>
+                <TextBlock x:Name="ProgressText" Text="Processing..."
+                           FontFamily="Segoe UI" FontSize="13" FontWeight="Bold"
+                           Foreground="#6B5A2E" Margin="0,0,0,8"
+                           TextOptions.TextRenderingMode="ClearType"
+                           TextOptions.TextFormattingMode="Display"/>
+                <ProgressBar x:Name="ProgressBar" Height="5" IsIndeterminate="True">
+                    <ProgressBar.Foreground>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#E8C040" Offset="0"/>
+                            <GradientStop Color="#FFD966" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ProgressBar.Foreground>
+                </ProgressBar>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>

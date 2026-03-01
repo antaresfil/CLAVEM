@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+        <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+<OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+<UseWPF>true</UseWPF>
+<AssemblyName>Clavem</AssemblyName>
+    <Version>2.0.2</Version>
+    <AssemblyVersion>2.0.2.0</AssemblyVersion>
+    <FileVersion>2.0.2.0</FileVersion>
+    <InformationalVersion>2.0.2</InformationalVersion>
+    <Authors>Massimo Parisi</Authors>
+    <Company>Massimo Parisi</Company>
+    <Product>CLAVEM - File Encryption</Product>
+    <Copyright>Copyright (c) 2026 Massimo Parisi (antaresfil)</Copyright>
+    <Description>CLAVEM - File Encryption. Privacy-focused desktop file encryption tool (AES-256-GCM + Argon2id) with optional keyfile factor. By Massimo Parisi (antaresfil).</Description>
+    <ApplicationIcon>Resources\clavem.ico</ApplicationIcon>
+    <Win32Icon>Resources\clavem.ico</Win32Icon>
+    <!-- Required for in-place password string zeroing in MainWindow.xaml.cs -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+</PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Resources\clavem.ico" />
+    <Resource Include="Resources\clavem.png" />
+    <Resource Include="Resources\clavem_big.png" />
+    <Resource Include="Resources\clavem_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.3.0" />
+  </ItemGroup>
+
+</Project>
