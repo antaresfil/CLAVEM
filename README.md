@@ -182,7 +182,7 @@ CLAVEM/
 
 CLAVEM is **dual-licensed**:
 
-- **[AGPL-3.0-only](LICENSES/LICENSE-AGPL-3.0.txt)** — free for personal and open-source use
+- **[AGPL-3.0-only](LICENSE)** — free for personal and open-source use
 - **Commercial license** — for closed-source or proprietary distribution
 
 For commercial licensing: [xilomen@gmail.com](mailto:xilomen@gmail.com)
