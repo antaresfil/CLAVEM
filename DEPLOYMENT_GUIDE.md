@@ -3,7 +3,7 @@
 <p align="center">
   <img src="Resources/clavem_big.png" alt="CLAVEM Logo" width="80"/>
 </p>
-<p align="center"><strong>Massimo Parisi (antaresfil)</strong> — <a href="mailto:xilomen@gmail.com">xilomen@gmail.com</a> | Support: <a href="mailto:clavemhelp@noxfarm.com">clavemhelp@noxfarm.com</a></p>
+<p align="center"><strong>Massimo Parisi (antaresfil)</strong> — <a href="mailto:clavemhelp@noxfarm.com">clavemhelp@noxfarm.com</a> | Support: <a href="mailto:clavemhelp@noxfarm.com">clavemhelp@noxfarm.com</a></p>
 
 ---
 

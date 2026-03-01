@@ -4,7 +4,7 @@
 
 Please report security issues **privately**.
 
-- Email: **xilomen@gmail.com**
+- Email: **clavemhelp@noxfarm.com**
 - Subject: `CLAVEM Security Report`
 
 Include:

@@ -14,7 +14,7 @@ The format is based on **Keep a Changelog**, and this project follows **Semantic
 - Project renamed from **previous name** to **CLAVEM - File Encryption** for Microsoft Store publication
 - New logo and icon (transparent background)
 - Developer: Massimo Parisi (antaresfil)
-- Contact: xilomen@gmail.com
+- Contact: clavemhelp@noxfarm.com
 - Support: clavemhelp@noxfarm.com
 - Updated all documentation, interface and metadata with new identity
 
